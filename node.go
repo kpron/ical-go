@@ -57,7 +57,11 @@ func (this *Node) PropDate(name string, defaultValue time.Time) time.Time {
 		}
 		output, err = time.ParseInLocation("20060102T150405", node.Value, loc)
 	} else {
-		output, err = time.Parse("20060102T150405", node.Value)
+		loc, err := time.LoadLocation("Europe/Moscow")
+		if err != nil {
+			panic(err)
+		}
+		output, err = time.ParseInLocation("20060102T150405", node.Value, loc)
 	}
 
 	if err != nil {
